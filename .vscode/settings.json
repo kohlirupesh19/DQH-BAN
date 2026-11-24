@@ -1,0 +1,11 @@
+{
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/dashboard"
+  ],
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}",
+    "${workspaceFolder}/dashboard"
+  ],
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+}
