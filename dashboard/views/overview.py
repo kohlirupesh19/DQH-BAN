@@ -40,41 +40,40 @@ def render_page(data: dict, fc, sim):
 
     st.markdown("---")
 
-    # 2. Architecture & Dataset Inventory
-    c_arch, c_chart = st.columns([1.1, 1.2])
+    # 2. Architecture Diagram (Full Width for Maximum Legibility)
+    st.markdown("### **System Architecture Pipeline**")
+    arch_p = resolve_path("dashboard/assets/architecture/fig01_dqh_ban_architecture_refined.png")
+    if not arch_p.exists():
+        arch_p = resolve_path("figures/fig01_dqh_ban_architecture.png")
+    if arch_p.exists():
+        st.image(str(arch_p), caption="DQH-BAN 6-Layer Architecture: Body Area Network Acquisition, Preprocessing & Leakage Guards, Dual-Stream Intelligence, Security Orchestration, Blockchain & Vault, Clinical API Gateway", use_container_width=True)
 
-    with c_arch:
-        st.markdown("### **System Architecture Pipeline**")
-        arch_p = resolve_path("dashboard/assets/architecture/fig01_dqh_ban_architecture_refined.png")
-        if not arch_p.exists():
-            arch_p = resolve_path("figures/fig01_dqh_ban_architecture.png")
-        if arch_p.exists():
-            st.image(str(arch_p), caption="DQH-BAN 6-Layer Architecture: Sensors, Preprocessing, Dual-Stream AI, Security Orchestration, Blockchain, API", use_container_width=True)
+    st.markdown("---")
 
-    with c_chart:
-        st.markdown("### **Cross-Dataset Benchmark Comparison**")
-        if not df_bench.empty:
-            key_models = [
-                "DQH_BAN_Hybrid_Quantum_Ensemble",
-                "Classical_Stacking_Ensemble",
-                "XGBoost",
-                "LightGBM"
-            ]
-            df_sub = df_bench[df_bench["model"].isin(key_models)].copy()
-            if not df_sub.empty:
-                fig = px.bar(
-                    df_sub, x="dataset", y="accuracy", color="model", barmode="group",
-                    color_discrete_map={
-                        "DQH_BAN_Hybrid_Quantum_Ensemble": COLOR_QUANTUM,
-                        "Classical_Stacking_Ensemble": COLOR_CYBER,
-                        "XGBoost": "#F59E0B",
-                        "LightGBM": "#10B981"
-                    },
-                    title="Empirical Held-Out Test Accuracy Across 5 IoMT Benchmarks"
-                )
-                fig.update_layout(yaxis_range=[0.92, 1.005])
-                apply_dark_theme(fig, height=360, xaxis_title="Cybersecurity Dataset", yaxis_title="Test Accuracy")
-                st.plotly_chart(fig, use_container_width=True)
+    # 3. Cross-Dataset Benchmark Comparison
+    st.markdown("### **Cross-Dataset Benchmark Comparison**")
+    if not df_bench.empty:
+        key_models = [
+            "DQH_BAN_Hybrid_Quantum_Ensemble",
+            "Classical_Stacking_Ensemble",
+            "XGBoost",
+            "LightGBM"
+        ]
+        df_sub = df_bench[df_bench["model"].isin(key_models)].copy()
+        if not df_sub.empty:
+            fig = px.bar(
+                df_sub, x="dataset", y="accuracy", color="model", barmode="group",
+                color_discrete_map={
+                    "DQH_BAN_Hybrid_Quantum_Ensemble": COLOR_QUANTUM,
+                    "Classical_Stacking_Ensemble": COLOR_CYBER,
+                    "XGBoost": "#F59E0B",
+                    "LightGBM": "#10B981"
+                },
+                title="Empirical Held-Out Test Accuracy Across 5 IoMT Benchmarks"
+            )
+            fig.update_layout(yaxis_range=[0.92, 1.005])
+            apply_dark_theme(fig, height=360, xaxis_title="Cybersecurity Dataset", yaxis_title="Test Accuracy")
+            st.plotly_chart(fig, use_container_width=True)
 
     st.markdown("---")
 

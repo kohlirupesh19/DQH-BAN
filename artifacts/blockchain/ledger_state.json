@@ -1263,6 +1263,40 @@
         ],
         "registered_at": "2026-11-11T16:04:48Z"
       }
+    },
+    {
+      "block_number": 70,
+      "timestamp": "2026-11-24T15:53:22Z",
+      "previous_hash": "241253ca20313dd4f1dbfcecf3a875de76fa565c6f443030d989e9ec6be4d657",
+      "block_hash": "8cffd736c65b1f0e4767305bd63a0ab3aa6a4cd6c5d4cd54e42b0316fd5d74fb",
+      "tx_type": "recordSecurityEvent",
+      "execution_engine": "Fabric_Cryptographic_Ledger_Fallback",
+      "payload": {
+        "event_id": "EVT_Smartwatch_Wearable_1795535602715",
+        "device_id": "Smartwatch_Wearable",
+        "event_type": "CONFIRMED_MALICIOUS_COMMUNICATION:TCP_IP-DDoS-SYN",
+        "threat_score": 0.9995476716007545,
+        "severity": "CRITICAL",
+        "action_taken": "RECOMMEND_DEVICE_ISOLATION",
+        "timestamp": "2026-11-24T15:53:22Z"
+      }
+    },
+    {
+      "block_number": 71,
+      "timestamp": "2026-11-24T15:54:26Z",
+      "previous_hash": "8cffd736c65b1f0e4767305bd63a0ab3aa6a4cd6c5d4cd54e42b0316fd5d74fb",
+      "block_hash": "0bd96d862d20f98fa2f929c1d4a09d3328d5d13aa52dfc5114c31fb6d6ea121e",
+      "tx_type": "recordSecurityEvent",
+      "execution_engine": "Fabric_Cryptographic_Ledger_Fallback",
+      "payload": {
+        "event_id": "EVT_Smartwatch_Wearable_1795535666299",
+        "device_id": "Smartwatch_Wearable",
+        "event_type": "CONFIRMED_MALICIOUS_COMMUNICATION:MQTT-DoS-Connect_Flood",
+        "threat_score": 0.9995465798013712,
+        "severity": "CRITICAL",
+        "action_taken": "RECOMMEND_DEVICE_ISOLATION",
+        "timestamp": "2026-11-24T15:54:26Z"
+      }
     }
   ],
   "devices": {
@@ -1970,6 +2004,24 @@
       "severity": "CRITICAL",
       "action_taken": "CHALLENGE_AUTHENTICATION",
       "timestamp": "2026-11-11T16:04:48Z"
+    },
+    {
+      "event_id": "EVT_Smartwatch_Wearable_1795535602715",
+      "device_id": "Smartwatch_Wearable",
+      "event_type": "CONFIRMED_MALICIOUS_COMMUNICATION:TCP_IP-DDoS-SYN",
+      "threat_score": 0.9995476716007545,
+      "severity": "CRITICAL",
+      "action_taken": "RECOMMEND_DEVICE_ISOLATION",
+      "timestamp": "2026-11-24T15:53:22Z"
+    },
+    {
+      "event_id": "EVT_Smartwatch_Wearable_1795535666299",
+      "device_id": "Smartwatch_Wearable",
+      "event_type": "CONFIRMED_MALICIOUS_COMMUNICATION:MQTT-DoS-Connect_Flood",
+      "threat_score": 0.9995465798013712,
+      "severity": "CRITICAL",
+      "action_taken": "RECOMMEND_DEVICE_ISOLATION",
+      "timestamp": "2026-11-24T15:54:26Z"
     }
   ],
   "access_control": {}
