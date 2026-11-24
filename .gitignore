@@ -6,3 +6,5 @@ __pycache__/
 datasets/
 artifacts_backup/
 
+
+.streamlit/secrets.toml

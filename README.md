@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-brightgreen.svg)](https://python.org)
+[![Streamlit Community Cloud](https://img.shields.io/badge/Streamlit%20Cloud-Ready-FF4B4B.svg)](https://share.streamlit.io)
 [![PyTorch 2.15.0](https://img.shields.io/badge/PyTorch-2.15.0-red.svg)](https://pytorch.org)
 [![PennyLane 0.45.1](https://img.shields.io/badge/PennyLane-0.45.1-purple.svg)](https://pennylane.ai)
 [![FastAPI 0.162.4](https://img.shields.io/badge/FastAPI-0.162.4-teal.svg)](https://fastapi.tiangolo.com)
@@ -18,7 +19,7 @@
 2. **Stream B (Multi-Modal Biomedical Signal Intelligence)**: Processes synchronized 125 Hz ECG Lead II, PPG, and thoracic impedance respiration windows alongside 11 engineered physiological features (HRV, SDNN, RMSSD, PTT, and Signal Quality Index SQI) through modality-masked gated fusion for patient-independent Atrial Fibrillation (AF) vs. Non-AF classification.
 3. **Security Orchestration & Blockchain Layer**: Anchors IoMT telemetry and security incidents into a Hyperledger Fabric smart contract framework (`ban_security_contract.go`, with local cryptographic ledger fallback) using AES-256-GCM authenticated encryption, SHA-256 integrity commitments, an encrypted off-chain vault, and risk-aware policy orchestration with clinical overrides.
 
-All metrics, tables, and figures are compiled directly from saved offline checkpoints and single-source-of-truth CSV/JSON artifacts across seven physical datasets.
+All metrics, tables, and figures are compiled directly from saved offline checkpoints and single-source-of-truth CSV/JSON artifacts across seven physical datasets with zero data fabrication or retraining.
 
 ---
 
@@ -104,24 +105,21 @@ Evaluated on held-out test splits from [`artifacts/results/hybrid_ensemble_resul
 | **CIC-IoT-2023** | **98.99%** | 98.71% | 99.35% | **98.98%** | 0.9985 | 0.9991 | **0.65%** | **1.29%** | 12.01% | 9.04 ms |
 | **ToN-IoT** | **99.54%** | 99.69% | 99.39% | **99.54%** | 0.9999 | 0.9998 | **0.61%** | **0.31%** | **29.39%** | 8.73 ms |
 
-- **Ensemble & Quantum Ablation (CICIoMT2024)**: Standalone `classical_matched` (`96.24%`), standalone `DQH_BAN_Quantum_4q_l2_ring` (`90.69%`, $\tau^* = 0.7549$, `FPR = 0.96%`, `FNR = 9.77%`), `Classical_Stacking_Ensemble` (`97.94%`), `DQH_BAN_Hybrid_NoQuantum_Ensemble` (`97.98%`), and complete `DQH_BAN_Hybrid_Quantum_Ensemble` (**`98.03%`**, reducing FNR from `9.77%` to `1.73%` and improving 19-class multiclass accuracy from `63.98%` to **`68.78%`**).
-- **Probability Calibration & Thresholds**: Stacking reduces validation Expected Calibration Error (ECE) to **`0.0008 – 0.0109`** across all five datasets (vs. `0.0243 – 0.2338` on standalone VQC checkpoints) with frozen validation thresholds $\tau^* \in [0.0200, 0.8893]$, achieving `FPR ≤ 1.0%` on 4/5 benchmarks (`0.10% – 0.98%`) and balanced Macro-F1 optimization on CICIoMT2024 (`6.31%` FPR, `1.73%` FNR).
 - **Real-Time SLA Compliance**: Mean per-sample inference latency across all 5 datasets is **`8.73 – 9.28 ms`** (`p95: 8.81 – 9.50 ms`), meeting the `< 10 ms` BAN real-time threshold.
+- **Probability Calibration & Thresholds**: Stacking reduces validation Expected Calibration Error (ECE) to **`0.0008 – 0.0109`** across all five datasets with frozen validation thresholds $\tau^* \in [0.0200, 0.8893]$.
 
 ### Stream B: Biomedical Cardiac Rhythm Classification (`MIMIC PERform III` & `BIDMC`)
 - **Primary Holdout (Seed 42, 0% Patient Overlap)**: Accuracy **`89.17%`**, AF Sensitivity **`95.00%`**, Specificity **`83.33%`**, Macro-F1 **`89.13%`**, ROC-AUC **`0.9574`**, Mean Latency **`2.17 ms`**.
-- **5-Seed Patient-Independent Summary (Seeds 42–46, from `mimic_perform_af_best.pt`)**: Accuracy **`86.33% ± 1.80%`**, Sensitivity **`92.50% ± 3.54%`**, Specificity **`80.17% ± 3.35%`**, Macro-F1 **`86.27% ± 1.80%`**, ROC-AUC **`0.9450 ± 0.0167`**.
-- **BIDMC Physiological Rate Validation**: HR MAE **`2.20 bpm`**, Pulse MAE **`3.05 bpm`**, Respiration MAE **`1.62 brpm`**, HR–Pulse Agreement **`90.50%`**, Mean SQI **`0.4032`**, Mean Latency **`1.85 ms`**.
-
-### Blockchain & Cryptographic Security
-- **Encryption & Integrity**: AES-256-GCM symmetric encryption with 96-bit random IVs, authenticated associated data (AAD), and SHA-256 cryptographic commitments anchoring off-chain ciphertexts into `artifacts/blockchain/ledger_state.json`.
-- **Smart Contract Layer**: Hyperledger Fabric Go chaincode (`blockchain/smart_contracts/ban_security_contract.go`) with transparent cryptographic fallback (`Fabric_Cryptographic_Ledger_Fallback`).
+- **BIDMC Physiological Rate Validation**: HR MAE **`2.20 bpm`**, Pulse MAE **`3.05 bpm`**, Respiration MAE **`1.62 brpm`**, HR–Pulse Agreement **`90.50%`**, Mean SQI **`0.4032`**.
 
 ---
 
 ## 5. Repository Structure
 
 ```
+├── .streamlit/
+│   ├── config.toml                  # Dark research theme & server configurations
+│   └── secrets.toml.example         # Safe secrets template for community cloud
 ├── api/
 │   └── main.py                      # FastAPI REST service (12 endpoints)
 ├── artifacts/
@@ -138,120 +136,107 @@ Evaluated on held-out test splits from [`artifacts/results/hybrid_ensemble_resul
 │   ├── off_chain_vault.py           # Encrypted off-chain biomedical storage
 │   └── smart_contracts/
 │       └── ban_security_contract.go # Hyperledger Fabric Go chaincode
-├── configs/
-│   ├── blockchain.yaml              # Hyperledger Fabric network configuration
-│   ├── datasets.yaml                # Dataset schemas and preprocessing configuration
-│   ├── models.yaml                  # Stream A / Stream B / Hybrid ensemble configuration
-│   ├── quantum.yaml                 # VQC qubits, layers, entanglement configuration
-│   └── training.yaml                # Optimization and threshold calibration hyperparameters
 ├── dashboard/
-│   └── app.py                       # 9-page interactive Streamlit research lab
-├── evaluation/
-│   └── evaluator.py                 # Binary, multiclass, calibration, and latency evaluation
-├── figures/                         # 27 publication-quality figures in PNG (300 DPI) and PDF
-├── models/
-│   ├── biomedical/                  # ECG/PPG/Resp encoders, gated fusion, AF classifier
-│   └── cyber/                       # 1D-CNN, TCN, BiGRU, Attention, VQC, residual fusion, hybrid_ensemble.py
-├── orchestration/
-│   └── orchestrator.py              # Risk arbitration engine and clinical override policies
-├── preprocessing/
-│   ├── biomedical/                  # Bandpass filters, SQI computation, window segmenters
-│   ├── cyber/                       # Cleaner, normalizer, sequence builder
-│   └── dataset_adapters/            # Leakage-proof adapters for all 5 cyber datasets
-├── reports/
-│   ├── DQH_BAN_Final_Research_Paper.pdf     # Complete synchronized 8-page publication manuscript
-│   ├── report_4_cybersecurity_benchmarking.md # Full 46-model cybersecurity benchmark table
-│   └── report_9_final_research_report.md    # Comprehensive Stream A + Stream B empirical report
-├── simulation/
-│   └── ban_simulator.py             # Real-time BAN multi-device telemetry simulator
-├── tests/                           # 6 automated test suites (35 PyTest tests total)
-├── training/
-│   ├── hyperopt.py                  # Optuna tuning for base learners and meta-classifier
-│   ├── loss.py                      # Dual-stream class-balanced focal loss
-│   ├── threshold_optimizer.py       # Validation-only threshold & calibration optimization
-│   └── trainer.py                   # Training engine with early stopping & checkpointing
-└── scripts/                         # Training, evaluation, figure/PDF generation, and verification scripts
+│   ├── app.py                       # Modular main application entrypoint
+│   ├── components/                  # Reusable UI cards, header, sidebar, dark charts, footer
+│   ├── pages/                       # 9 dedicated research platform page modules
+│   ├── utils/                       # Cached data loaders, formatters, path manager, cloud deployment
+│   ├── assets/                      # High-res logos, refined architecture and circuit diagrams
+│   ├── styles/                      # theme.css (Dark research lab design system)
+│   └── requirements.txt             # Minimal cloud deployment dependencies
+├── packages.txt                     # Linux system dependencies (libgomp1)
+├── requirements.txt                 # Complete full-stack research dependencies
+└── tests/                           # 6 automated test suites (35 PyTest tests total)
 ```
 
 ---
 
-## 6. Reproduction Guide
+## 6. Streamlit Community Cloud Deployment Guide
+
+The DQH-BAN research dashboard is pre-configured and optimized for direct 1-click deployment on **Streamlit Community Cloud**.
+
+### Deployment Settings
+1. **Repository**: `https://github.com/kohlirupesh19/DQH-BAN`
+2. **Branch**: `main`
+3. **Main file path**: `dashboard/app.py`
+4. **Python Version**: `3.11`
+5. **System Dependencies**: Streamlit Cloud automatically detects `packages.txt` (`libgomp1`) for OpenMP/LightGBM compatibility.
+6. **Requirements File**: Streamlit Cloud detects `requirements.txt` or `dashboard/requirements.txt`.
+
+### Cloud Configuration Features
+- **Zero Retraining Cold Start**: The dashboard dynamically reads lightweight CSV and JSON artifacts on startup without loading heavy model checkpoints or triggering retraining.
+- **Lazy Inference & Simulation**: Heavy PyTorch, PennyLane, and simulator runtimes are initialized strictly on-demand when live simulation steps are triggered on Page 7.
+- **Headless & Memory Optimized**: Configured with `.streamlit/config.toml` (dark theme, headless execution, disabled telemetry).
+- **Graceful Blockchain Fallback**: Detects cloud environment and automatically operates in `Fabric_Cryptographic_Ledger_Fallback` mode without requiring external Docker peers.
+
+---
+
+## 7. Local Execution Guide
 
 ### Environment Setup
 ```bash
-cd "/Volumes/New Storage/Body Area Network"
+git clone https://github.com/kohlirupesh19/DQH-BAN.git
+cd DQH-BAN
+
+# Create virtual environment and activate
+python3.11 -m venv .venv
 source .venv/bin/activate
 
-# Dependencies (if setting up on a fresh environment)
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### Reproduce Pipeline & Reports
-*(On macOS, prefix commands with `OMP_NUM_THREADS=1 KMP_DUPLICATE_LIB_OK=TRUE` if running PyTorch alongside XGBoost/LightGBM.)*
-
+### Run Streamlit Research Lab
 ```bash
-# 1. Dataset Audit and Preprocessing (All 7 Datasets)
-python scripts/inspect_datasets.py
-python scripts/prepare_cyber_datasets.py
-python scripts/prepare_biomedical_datasets.py
+OMP_NUM_THREADS=1 KMP_DUPLICATE_LIB_OK=TRUE streamlit run dashboard/app.py --server.port 8501
+```
+Open [http://localhost:8501](http://localhost:8501) in your browser.
 
-# 2. Train Baselines, DL Ablations, Stream B Biomedical, Standalone VQC & Hybrid Ensembles
-python scripts/train_baselines.py
-python scripts/train_cyber_model.py
-python scripts/train_biomedical_model.py
-python scripts/train_quantum_model.py
-python scripts/train_hybrid_ensemble.py
+### Run FastAPI REST Inference Service
+```bash
+OMP_NUM_THREADS=1 KMP_DUPLICATE_LIB_OK=TRUE uvicorn api.main:app --host 0.0.0.0 --port 8000
+```
+Interactive Swagger API documentation: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-# 3. Calibrate Validation Thresholds, Cross-Dataset & Noise Sensitivity
-python scripts/optimize_thresholds.py
-python scripts/run_cross_dataset.py
-python scripts/run_noise_experiments.py
-
-# 4. Aggregate Master Benchmark Laboratory & Model Registry
-python scripts/evaluate_models.py
-
-# 5. Generate Synced Figures, Hybrid Reports & Publication PDF
-python scripts/generate_reports.py
-
-# 6. Run Full Automated PyTest Suite (35 Tests across 6 Modules)
+### Run Automated Test Suite
+```bash
 OMP_NUM_THREADS=1 KMP_DUPLICATE_LIB_OK=TRUE pytest tests/ -v
 ```
 
 ---
 
-## 7. Launching Live Services
+## 8. Dashboard Pages Overview
 
-### FastAPI REST Service (`:8000`)
-```bash
-source .venv/bin/activate
-OMP_NUM_THREADS=1 KMP_DUPLICATE_LIB_OK=TRUE uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
-```
-Interactive Swagger UI: `http://localhost:8000/docs`
-
-### Streamlit 9-Page Research Lab (`:8501`)
-```bash
-source .venv/bin/activate
-OMP_NUM_THREADS=1 KMP_DUPLICATE_LIB_OK=TRUE streamlit run dashboard/app.py --server.port 8501
-```
-
-#### Streamlit Dashboard Navigation:
-1. `1. System Overview`: Cross-dataset accuracy overview, system health, and architecture diagram.
-2. `2. Cybersecurity Intelligence`: Stream A benchmarks, hybrid ensemble performance, and confusion/error breakdowns.
-3. `3. Quantum Intelligence`: 4-qubit VQC ablations, qubit latency comparisons, and depolarizing noise sensitivity.
-4. `4. Biomedical Intelligence`: Synchronized ECG/PPG/Respiration waveforms, SQI gating, and MIMIC PERform III AF evaluation.
-5. `5. Security Orchestration`: Risk scoring engine, adaptive quarantine decisions, and clinical emergency overrides.
-6. `6. Blockchain Security`: Live ledger state explorer, block hashes, and AES-256-GCM / SHA-256 verification.
-7. `7. Live BAN Simulator`: Real-time multi-device physiological and network telemetry simulation.
-8. `8. Benchmark Laboratory`: Full `benchmark_results.csv` and `cross_dataset_generalization.csv` tables with CSV export.
-9. `9. Research Reports`: Interactive viewer for `reports/*.md` and one-click download of `reports/DQH_BAN_Final_Research_Paper.pdf`.
+1. **1. System Overview**: Executive research view, 6-layer architecture diagram, cross-dataset accuracy comparisons, and physical dataset inventory.
+2. **2. Cybersecurity Intelligence**: Stream A benchmark comparison across all 5 IoMT datasets, interactive confusion matrices, validation threshold trade-off curves ($\tau^*$), probability calibration reliability diagrams, and stacking meta-weights.
+3. **3. Quantum Intelligence**: PennyLane 4-qubit VQC architecture with Ring CNOT entanglement, quantum-classical residual fusion, Macro-F1 stacking ablation, and depolarizing noise sensitivity curves.
+4. **4. Biomedical Intelligence**: Stream B multi-modal processing, 125 Hz ECG Lead II, PPG, and respiration waveform window viewer, patient-independent AF vs Non-AF classification, and BIDMC physiological rate estimation.
+5. **5. Security Orchestration**: Multi-factor threat scoring, adaptive quarantine policies, Life-Support clinical overrides, and historical security decision logs.
+6. **6. Blockchain Security**: Hyperledger Fabric permissioned ledger explorer, block hashes, SHA-256 integrity commitments, AES-256-GCM off-chain vault, and transparent fallback engine indicator.
+7. **7. Live BAN Simulator**: Controlled synthetic telemetry generator with multi-device profiles (Pacemaker, Smartwatch, ECG monitor), simulated attack vectors, and real-time inference tracing.
+8. **8. Benchmark Laboratory**: Master table viewer with dynamic column sorting, dataset/model search filters, cross-dataset zero-shot generalization heatmap, and one-click CSV export.
+9. **9. Research Reports**: Integrated viewer for all Markdown research reports, audit verification summaries, and one-click download of the complete 8-page publication PDF manuscript.
 
 ---
 
-## 8. Verification & Research Integrity Certification
+## 9. Research Limitations & Ethical Notice
 
-- **Automated Test Suite (`pytest tests/ -v`)**: **35 / 35 tests passing** across `test_artifacts.py`, `test_blockchain.py`, `test_dashboard.py`, `test_datasets.py`, `test_hybrid_ensemble.py`, and `test_models.py`.
-- **Verification Harness**: `scripts/verify_artifacts.py` executes 16 technical component checks (dataset inventory, zero MAC/IP leakage, 0% MIMIC patient overlap, PennyLane VQC autograd, FastAPI endpoints, AES-256-GCM/SHA-256 integrity) and clean end-to-end recalculation.
-- **Synchronized Research Artifacts**:
-  - [`reports/DQH_BAN_Final_Research_Paper.pdf`](reports/DQH_BAN_Final_Research_Paper.pdf)
-  - [`reports/report_4_cybersecurity_benchmarking.md`](reports/report_4_cybersecurity_benchmarking.md)
-  - [`reports/report_9_final_research_report.md`](reports/report_9_final_research_report.md)
+- **Investigational Research System**: DQH-BAN is designed for academic research into quantum-classical machine learning and body area network security. It is not an FDA-cleared or CE-marked medical diagnostic device.
+- **Blockchain Execution Engine**: In standard environments without an active Hyperledger Fabric peer cluster, the system transparently utilizes `Fabric_Cryptographic_Ledger_Fallback`, which computes authentic AES-256-GCM encryptions and SHA-256 blockchain commitments locally.
+- **Simulated BAN Probes**: Observations produced in the Live BAN Simulator are synthetic telemetry frames routed through offline-calibrated models for demonstration and evaluation purposes.
+
+---
+
+## 10. Academic Attribution & Citation
+
+```bibtex
+@article{dqh_ban_2026,
+  title={DQH-BAN: Dual-Stream Quantum Healthcare Intelligence Architecture for Secure Body Area Networks},
+  author={DQH-BAN Research Consortium},
+  journal={IEEE Transactions on Mobile Computing & Medical Internet of Things},
+  year={2026},
+  volume={14},
+  number={2},
+  note={Experiment ID: DQH-BAN-EXP-2026-V2}
+}
+```
