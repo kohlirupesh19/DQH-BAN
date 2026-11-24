@@ -113,12 +113,13 @@ def render_page(data: dict):
     with c_noise:
         st.markdown("### **Quantum Hardware Noise Sensitivity**")
         if not df_noise.empty:
+            x_col = "depolarizing_noise_sigma" if "depolarizing_noise_sigma" in df_noise.columns else df_noise.columns[0]
             fig_noise = px.line(
-                df_noise, x="noise_probability", y="macro_f1",
+                df_noise, x=x_col, y="macro_f1",
                 markers=True, color_discrete_sequence=[COLOR_QUANTUM],
                 title="Depolarizing Noise Impact on Test Macro-F1"
             )
-            apply_dark_theme(fig_noise, height=300, xaxis_title="Depolarizing Error Probability (p)", yaxis_title="Macro-F1 Score")
+            apply_dark_theme(fig_noise, height=300, xaxis_title="Depolarizing Noise Error Sigma (p)", yaxis_title="Macro-F1 Score")
             st.plotly_chart(fig_noise, use_container_width=True)
         else:
             st.info("Quantum noise sensitivity results available in artifacts/results/quantum_noise_sensitivity.csv.")

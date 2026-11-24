@@ -44,41 +44,41 @@ data = load_all_datasets_data()
 # Render persistent sidebar navigation
 selected_page = render_sidebar(fc, sim)
 
-# Page routing
-if selected_page == "1. System Overview":
-    from dashboard.pages import overview
+# Page routing to views
+if "1. System Overview" in selected_page:
+    from dashboard.views import overview
     overview.render_page(data, fc, sim)
 
-elif selected_page == "2. Cybersecurity Intelligence":
-    from dashboard.pages import cybersecurity
+elif "2. Cybersecurity Intelligence" in selected_page:
+    from dashboard.views import cybersecurity
     cybersecurity.render_page(data)
 
-elif selected_page == "3. Quantum Intelligence":
-    from dashboard.pages import quantum
+elif "3. Quantum Intelligence" in selected_page:
+    from dashboard.views import quantum
     quantum.render_page(data)
 
-elif selected_page == "4. Biomedical Intelligence":
-    from dashboard.pages import biomedical
+elif "4. Biomedical Intelligence" in selected_page:
+    from dashboard.views import biomedical
     biomedical.render_page(data)
 
-elif selected_page == "5. Security Orchestration":
-    from dashboard.pages import orchestration
+elif "5. Security Orchestration" in selected_page:
+    from dashboard.views import orchestration
     orchestration.render_page(orch, fc)
 
-elif selected_page == "6. Blockchain Security":
-    from dashboard.pages import blockchain
+elif "6. Blockchain Security" in selected_page:
+    from dashboard.views import blockchain
     blockchain.render_page(fc, vault)
 
-elif selected_page == "7. Live BAN Simulator":
-    from dashboard.pages import simulator
+elif "7. Live BAN Simulator" in selected_page:
+    from dashboard.views import simulator
     simulator.render_page(sim)
 
-elif selected_page == "8. Benchmark Laboratory":
-    from dashboard.pages import benchmark
+elif "8. Benchmark Laboratory" in selected_page:
+    from dashboard.views import benchmark
     benchmark.render_page(data)
 
-elif selected_page == "9. Research Reports":
-    from dashboard.pages import reports
+elif "9. Research Reports" in selected_page:
+    from dashboard.views import reports
     reports.render_page()
 
 # Render standardized footer

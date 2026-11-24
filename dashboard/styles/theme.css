@@ -1,4 +1,4 @@
-/* DQH-BAN Professional Dark Research Theme */
+/* DQH-BAN Professional Dark Research Theme with Enhanced Motion Design */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
@@ -28,6 +28,202 @@
     font-family: var(--font-sans);
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-cyber {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 7px rgba(56, 189, 248, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
+
+@keyframes pulse-bio {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 7px rgba(45, 212, 191, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
+}
+
+@keyframes pulse-quantum {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(129, 140, 248, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 7px rgba(129, 140, 248, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(129, 140, 248, 0); }
+}
+
+@keyframes pulse-green {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 7px rgba(52, 211, 153, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+
+/* Sidebar Custom Styling */
+section[data-testid="stSidebar"] {
+    background-color: #0E1529 !important;
+    border-right: 1px solid var(--border-subtle) !important;
+}
+
+/* Hide any native page auto-navigation if rendered by Streamlit engine */
+[data-testid="stSidebarNav"], div[data-testid="stSidebarNav"] {
+    display: none !important;
+}
+
+/* Brand Banner in Sidebar */
+.dqh-brand-container {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.dqh-brand-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: #F8FAFC;
+    letter-spacing: 0.05em;
+    background: linear-gradient(90deg, #38BDF8, #818CF8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dqh-brand-tag {
+    font-size: 10px;
+    color: #94A3B8;
+    font-family: var(--font-mono);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+}
+
+.dqh-nav-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748B;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    padding-left: 4px;
+}
+
+.dqh-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 18px 0;
+}
+
+/* Sidebar Navigation Radio Items (Animated) */
+section[data-testid="stSidebar"] div[data-testid="stRadio"] > div {
+    gap: 4px !important;
+}
+
+section[data-testid="stSidebar"] div[data-testid="stRadio"] label {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: var(--text-muted) !important;
+    padding: 9px 12px !important;
+    border-radius: 8px !important;
+    margin-bottom: 2px !important;
+    border: 1px solid transparent !important;
+    background: rgba(17, 24, 39, 0.4) !important;
+    cursor: pointer !important;
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+section[data-testid="stSidebar"] div[data-testid="stRadio"] label:hover {
+    transform: translateX(5px) !important;
+    color: var(--text-main) !important;
+    background: rgba(56, 189, 248, 0.12) !important;
+    border-color: rgba(56, 189, 248, 0.3) !important;
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.12) !important;
+}
+
+/* Active Selected Item in Navigation */
+section[data-testid="stSidebar"] div[data-testid="stRadio"] label[data-checked="true"],
+section[data-testid="stSidebar"] div[data-testid="stRadio"] label:has(input:checked) {
+    color: #F8FAFC !important;
+    font-weight: 600 !important;
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.18) 0%, rgba(129, 140, 248, 0.12) 100%) !important;
+    border-left: 3px solid var(--accent-primary) !important;
+    border-color: rgba(56, 189, 248, 0.4) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Pulsating Telemetry Dots */
+.dqh-telemetry-box {
+    background: rgba(17, 24, 39, 0.7);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 12px 14px;
+}
+
+.dqh-telemetry-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.dqh-telemetry-item:last-child {
+    margin-bottom: 0;
+}
+
+.dqh-tel-label {
+    color: #94A3B8;
+    flex-grow: 1;
+}
+
+.dqh-tel-val {
+    font-family: var(--font-mono);
+    font-weight: 600;
+}
+
+.dqh-tel-val.cyber { color: var(--accent-primary); }
+.dqh-tel-val.bio { color: var(--accent-bio); }
+.dqh-tel-val.quantum { color: var(--accent-secondary); }
+.dqh-tel-val.green { color: var(--status-success); }
+
+.dqh-pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dqh-pulse-dot.cyber {
+    background-color: var(--accent-primary);
+    animation: pulse-cyber 2s infinite;
+}
+
+.dqh-pulse-dot.bio {
+    background-color: var(--accent-bio);
+    animation: pulse-bio 2s infinite;
+}
+
+.dqh-pulse-dot.quantum {
+    background-color: var(--accent-secondary);
+    animation: pulse-quantum 2s infinite;
+}
+
+.dqh-pulse-dot.green {
+    background-color: var(--status-success);
+    animation: pulse-green 2s infinite;
+}
+
+.dqh-sidebar-footer {
+    font-size: 10px;
+    color: #64748B;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.dqh-sidebar-footer span {
+    color: #94A3B8;
+}
+
 /* Custom Header Banner */
 .dqh-header-container {
     background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(23, 32, 51, 0.85) 100%);
@@ -36,6 +232,7 @@
     padding: 20px 24px;
     margin-bottom: 24px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.3s ease-out;
 }
 
 .dqh-title {
@@ -104,17 +301,20 @@
     background: rgba(52, 211, 153, 0.1);
 }
 
-/* Metric KPI Cards */
+/* Metric KPI Cards with Animation */
 .dqh-kpi-card {
     background: var(--surface-main);
     border: 1px solid var(--border-subtle);
     border-radius: 10px;
     padding: 16px;
-    transition: border-color 0.2s ease, transform 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fadeIn 0.35s ease-out;
 }
 
 .dqh-kpi-card:hover {
-    border-color: var(--border-bright);
+    transform: translateY(-2px);
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.1);
 }
 
 .dqh-kpi-title {
@@ -158,6 +358,7 @@
     border-radius: 10px;
     padding: 18px 20px;
     margin-bottom: 20px;
+    animation: fadeIn 0.4s ease-out;
 }
 
 .dqh-panel-header {
@@ -189,19 +390,6 @@
 .dqh-callout.bio {
     border-left-color: var(--accent-bio);
     background: rgba(45, 212, 191, 0.08);
-}
-
-/* Sidebar Customization */
-section[data-testid="stSidebar"] {
-    background-color: #0E1529 !important;
-    border-right: 1px solid var(--border-subtle) !important;
-}
-
-section[data-testid="stSidebar"] .stRadio label {
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    padding: 6px 10px !important;
-    border-radius: 6px !important;
 }
 
 /* Dataframe & Table Modernization */
