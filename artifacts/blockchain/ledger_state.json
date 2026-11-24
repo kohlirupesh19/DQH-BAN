@@ -1297,6 +1297,82 @@
         "action_taken": "RECOMMEND_DEVICE_ISOLATION",
         "timestamp": "2026-11-24T15:54:26Z"
       }
+    },
+    {
+      "block_number": 72,
+      "timestamp": "2026-11-24T15:57:12Z",
+      "previous_hash": "0bd96d862d20f98fa2f929c1d4a09d3328d5d13aa52dfc5114c31fb6d6ea121e",
+      "block_hash": "b00c759b41201c64e416ac1a50637a9c1287bb6eb41ad31a3f456ec550b6072c",
+      "tx_type": "recordSecurityEvent",
+      "execution_engine": "Fabric_Cryptographic_Ledger_Fallback",
+      "payload": {
+        "event_id": "EVT_Holter_Monitor_ECG_1795535832529",
+        "device_id": "Holter_Monitor_ECG",
+        "event_type": "CONFIRMED_MALICIOUS_COMMUNICATION:MQTT-DoS-Connect_Flood",
+        "threat_score": 0.9995466009176747,
+        "severity": "CRITICAL",
+        "action_taken": "RECOMMEND_DEVICE_ISOLATION",
+        "timestamp": "2026-11-24T15:57:12Z"
+      }
+    },
+    {
+      "block_number": 73,
+      "timestamp": "2026-11-24T15:57:12Z",
+      "previous_hash": "b00c759b41201c64e416ac1a50637a9c1287bb6eb41ad31a3f456ec550b6072c",
+      "block_hash": "947eb65966b1450bd3bd5fafbd8a80aa7f6e1cc3752040390df499b69d387c93",
+      "tx_type": "recordDataHash",
+      "execution_engine": "Fabric_Cryptographic_Ledger_Fallback",
+      "payload": {
+        "record_id": "REC_Holter_Monitor_ECG_1795535832530",
+        "device_id": "Holter_Monitor_ECG",
+        "sha256_hash": "955d5f3cb1add762f30d10de2feba92858145e6eb57dc8842e8943b5715499ed",
+        "timestamp": "2026-11-24T15:57:12Z"
+      }
+    },
+    {
+      "block_number": 74,
+      "timestamp": "2026-11-24T15:57:42Z",
+      "previous_hash": "947eb65966b1450bd3bd5fafbd8a80aa7f6e1cc3752040390df499b69d387c93",
+      "block_hash": "267f8d3a084c0d0a0599593a162dd45222ed7d02b08fed3479d30c43316e605c",
+      "tx_type": "recordSecurityEvent",
+      "execution_engine": "Fabric_Cryptographic_Ledger_Fallback",
+      "payload": {
+        "event_id": "EVT_Holter_Monitor_ECG_1795535862318",
+        "device_id": "Holter_Monitor_ECG",
+        "event_type": "CONFIRMED_MALICIOUS_COMMUNICATION:MQTT-DoS-Connect_Flood",
+        "threat_score": 0.9995466003534103,
+        "severity": "CRITICAL",
+        "action_taken": "RECOMMEND_DEVICE_ISOLATION",
+        "timestamp": "2026-11-24T15:57:42Z"
+      }
+    },
+    {
+      "block_number": 75,
+      "timestamp": "2026-11-24T15:57:42Z",
+      "previous_hash": "267f8d3a084c0d0a0599593a162dd45222ed7d02b08fed3479d30c43316e605c",
+      "block_hash": "ee4b81430fb51c0147f361753d4fdcac616247cb4929ae9d7cf1812a2a6704ec",
+      "tx_type": "recordDataHash",
+      "execution_engine": "Fabric_Cryptographic_Ledger_Fallback",
+      "payload": {
+        "record_id": "REC_Holter_Monitor_ECG_1795535862319",
+        "device_id": "Holter_Monitor_ECG",
+        "sha256_hash": "37b8bfd82efc47a5abf049ef1aab39c1d54e1e1d68ab366359cfc11cb8d6fd94",
+        "timestamp": "2026-11-24T15:57:42Z"
+      }
+    },
+    {
+      "block_number": 76,
+      "timestamp": "2026-11-24T16:01:26Z",
+      "previous_hash": "ee4b81430fb51c0147f361753d4fdcac616247cb4929ae9d7cf1812a2a6704ec",
+      "block_hash": "c33168e5c14b0e87483c46a70b3403498d0ee58a9463ff2175a27e203d125db3",
+      "tx_type": "recordDataHash",
+      "execution_engine": "Fabric_Cryptographic_Ledger_Fallback",
+      "payload": {
+        "record_id": "REC_Chest_Patch_Respiration_1795536086448",
+        "device_id": "Chest_Patch_Respiration",
+        "sha256_hash": "58465faded2b318faa310e1535cf5c36f696484134c556bc2988312e35a269d5",
+        "timestamp": "2026-11-24T16:01:26Z"
+      }
     }
   ],
   "devices": {
@@ -1589,7 +1665,26 @@
       "registered_at": "2026-11-11T16:04:48Z"
     }
   },
-  "data_hashes": {},
+  "data_hashes": {
+    "REC_Holter_Monitor_ECG_1795535832530": {
+      "record_id": "REC_Holter_Monitor_ECG_1795535832530",
+      "device_id": "Holter_Monitor_ECG",
+      "sha256_hash": "955d5f3cb1add762f30d10de2feba92858145e6eb57dc8842e8943b5715499ed",
+      "timestamp": "2026-11-24T15:57:12Z"
+    },
+    "REC_Holter_Monitor_ECG_1795535862319": {
+      "record_id": "REC_Holter_Monitor_ECG_1795535862319",
+      "device_id": "Holter_Monitor_ECG",
+      "sha256_hash": "37b8bfd82efc47a5abf049ef1aab39c1d54e1e1d68ab366359cfc11cb8d6fd94",
+      "timestamp": "2026-11-24T15:57:42Z"
+    },
+    "REC_Chest_Patch_Respiration_1795536086448": {
+      "record_id": "REC_Chest_Patch_Respiration_1795536086448",
+      "device_id": "Chest_Patch_Respiration",
+      "sha256_hash": "58465faded2b318faa310e1535cf5c36f696484134c556bc2988312e35a269d5",
+      "timestamp": "2026-11-24T16:01:26Z"
+    }
+  },
   "security_events": [
     {
       "event_id": "EVT_Smartwatch_Wearable_1794390856468",
@@ -2022,6 +2117,24 @@
       "severity": "CRITICAL",
       "action_taken": "RECOMMEND_DEVICE_ISOLATION",
       "timestamp": "2026-11-24T15:54:26Z"
+    },
+    {
+      "event_id": "EVT_Holter_Monitor_ECG_1795535832529",
+      "device_id": "Holter_Monitor_ECG",
+      "event_type": "CONFIRMED_MALICIOUS_COMMUNICATION:MQTT-DoS-Connect_Flood",
+      "threat_score": 0.9995466009176747,
+      "severity": "CRITICAL",
+      "action_taken": "RECOMMEND_DEVICE_ISOLATION",
+      "timestamp": "2026-11-24T15:57:12Z"
+    },
+    {
+      "event_id": "EVT_Holter_Monitor_ECG_1795535862318",
+      "device_id": "Holter_Monitor_ECG",
+      "event_type": "CONFIRMED_MALICIOUS_COMMUNICATION:MQTT-DoS-Connect_Flood",
+      "threat_score": 0.9995466003534103,
+      "severity": "CRITICAL",
+      "action_taken": "RECOMMEND_DEVICE_ISOLATION",
+      "timestamp": "2026-11-24T15:57:42Z"
     }
   ],
   "access_control": {}
