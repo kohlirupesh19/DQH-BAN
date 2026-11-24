@@ -40,31 +40,18 @@ from dashboard.components.footer import render_footer
 from dashboard.utils.data_loader import load_all_datasets_data
 from dashboard.utils.deployment import get_system_instances_lazy
 
-# Import view modules with package-level fallback
-try:
-    from dashboard.views import (
-        overview,
-        cybersecurity,
-        quantum,
-        biomedical,
-        orchestration,
-        blockchain,
-        simulator,
-        benchmark,
-        reports
-    )
-except ImportError:
-    from views import (
-        overview,
-        cybersecurity,
-        quantum,
-        biomedical,
-        orchestration,
-        blockchain,
-        simulator,
-        benchmark,
-        reports
-    )
+# Import view modules
+from dashboard.views import (
+    overview,
+    cybersecurity,
+    quantum,
+    biomedical,
+    orchestration,
+    blockchain,
+    simulator,
+    benchmark,
+    reports
+)
 
 # Lazy-load system components and cached research data
 fc, vault, orch, sim = get_system_instances_lazy()
